@@ -2,6 +2,9 @@
 #include "assignments.h"
 #include "schedule.h"
 #include <iostream>
+#include <direct.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 
 
@@ -29,20 +32,18 @@ int main( )
     string assignment;
     string notepad_name;
 
+    _mkdir( "Schedules" );
+
     cout << "Welcome to your schedule program, Brandon! Which schedule would you like to look at today?" << endl;
     cout << "Please enter your schedule CSV file, or if you would like to create a new schedule, type \"new\"." << endl;
     cout << endl;
     system( "dir /b /o Schedules" );
+    
     cout << endl;
     cout << "Response: ";
     cin >> csv_name;
 
     csv_filename += csv_name;
-    sched_name = csv_name;
-    sched_name.erase( sched_name.length( ) - 1 );
-    sched_name.erase( sched_name.length( ) - 1 );
-    sched_name.erase( sched_name.length( ) - 1 );
-    sched_name.erase( sched_name.length( ) - 1 );
 
     if ( csv_name.compare( "new" ) == 0 )
     {
@@ -60,7 +61,7 @@ int main( )
         sched.insert_assignment( month, day, year, assignment );
 
         system( "cls" );
-        cout << "Here is your " << sched_name << " schedule, sir:" << endl << endl;
+        cout << "Here is your schedule, sir:" << endl << endl;
         sched.print_full( cout, "\n" );
         cout << endl;
         cout << "Would you like to make further changes?" << endl;
@@ -77,7 +78,7 @@ int main( )
         while ( response == 'y' )
         {
             system( "cls" );
-            cout << "Here is your " << sched_name << " schedule, sir:" << endl << endl;
+            cout << "Here is your schedule, sir:" << endl << endl;
             sched.print_full( cout, "\n" );
             cout << endl;
             cout << "What changes would you like to make to your schedule?" << endl;
@@ -91,7 +92,7 @@ int main( )
             while ( !( response == 'a' || response == 'd' || response == 'q' || response == 'e' || response == 'n' ) )
             {
                 system( "cls" );
-                cout << "Here is your " << sched_name << " schedule, sir:" << endl << endl;
+                cout << "Here is your schedule, sir:" << endl << endl;
                 sched.print_full( cout, "\n" );
                 cout << endl;
                 cout << "What changes would you like to make to your schedule?" << endl;
@@ -107,7 +108,7 @@ int main( )
             if ( response == 'n' )
             {
                 system( "cls" );
-                cout << "Here is your " << sched_name << " schedule, sir:" << endl << endl;
+                cout << "Here is your schedule, sir:" << endl << endl;
                 sched.print_full( cout, "\n" );
                 cout << endl;
 
@@ -119,8 +120,18 @@ int main( )
                     cout << "Are you sure you do not want to save your schedule, sir?" << endl;
                     cout << "Response (y/n): ";
                     cin >> response;
+
+                    if ( response == 'y' )
+                    {
+                        cout << "You may press any key to exit." << endl;
+                        cout << "Response: ";
+                        cin >> response;
+
+                        if ( response )
+                            return 0;
+                    }
                 }
-                if ( response == 'n' )
+                if ( response == 'y' )
                 {
                     sched.check_duedates( );
                     cout << "Your prefered text file sir: ";
@@ -171,7 +182,7 @@ int main( )
                     sched.check_duedates( );
 
                     system( "cls" );
-                    cout << "Here is your " << sched_name << " schedule, sir:" << endl << endl;
+                    cout << "Here is your schedule, sir:" << endl << endl;
                     sched.print_full( cout, "\n" );
                     cout << endl;
 
@@ -183,14 +194,24 @@ int main( )
                         cout << "Are you sure you do not want to save your schedule, sir?" << endl;
                         cout << "Response (y/n): ";
                         cin >> response;
+
+                        if ( response == 'y' )
+                        {
+                            cout << "You may press any key to exit." << endl;
+                            cout << "Response: ";
+                            cin >> response;
+
+                            if ( response )
+                                return 0;
+                        }
                     }
-                    if ( response == 'n' )
+                    if ( response == 'y' )
                     {
                         sched.check_duedates( );
                         cout << "Your prefered text file sir: ";
                         cin >> txt_name;
                         txt_filename = "Schedules\\" + txt_name;
-                        while ( !open_txt( ftxt, txt_name ) )
+                        while ( !open_txt( ftxt, txt_filename ) )
                         {
                             cout << "I could not open that text file, sir." << endl;
                             cout << "Please enter a text file: ";
@@ -229,7 +250,7 @@ int main( )
                 if ( response == 'd' )
                 {
                     system( "cls" );
-                    cout << "Here is your " << sched_name << " schedule, sir:" << endl << endl;
+                    cout << "Here is your schedule, sir:" << endl << endl;
                     sched.print_full( cout, "\n" );
                     cout << endl;
 
@@ -247,7 +268,7 @@ int main( )
                 if ( response == 'a' )
                 {
                     system( "cls" );
-                    cout << "Here is your " << sched_name << " schedule, sir:" << endl << endl;
+                    cout << "Here is your schedule, sir:" << endl << endl;
                     sched.print_full( cout, "\n" );
                     cout << endl;
 
@@ -268,7 +289,7 @@ int main( )
                 if ( response == 'q' )
                 {
                     system( "cls" );
-                    cout << "Here is your " << sched_name << " schedule, sir:" << endl << endl;
+                    cout << "Here is your schedule, sir:" << endl << endl;
                     sched.print_full( cout, "\n" );
                     cout << endl;
 
@@ -288,7 +309,7 @@ int main( )
                 if ( response == 'e' )
                 {
                     system( "cls" );
-                    cout << "Here is your " << sched_name << " schedule, sir:" << endl << endl;
+                    cout << "Here is your schedule, sir:" << endl << endl;
                     sched.print_full( cout, "\n" );
                     cout << endl;
 
@@ -303,7 +324,7 @@ int main( )
                 }
 
                 system( "cls" );
-                cout << "Here is your " << sched_name << " schedule, sir:" << endl << endl;
+                cout << "Here is your schedule, sir:" << endl << endl;
                 sched.print_full( cout, "\n" );
                 cout << endl;
                 cout << "Would you like to continue editing your schedule?" << endl;
@@ -326,14 +347,25 @@ int main( )
             cout << "Are you sure you do not want to save your schedule, sir?" << endl;
             cout << "Response (y/n): ";
             cin >> response;
+
+            if ( response == 'y' )
+            {
+                cout << "You may press any key to exit." << endl;
+                cout << "Response: ";
+                cin >> response;
+
+                if ( response )
+                    return 0;
+            }
+            
         }
-        if ( response == 'n' )
+        if ( response == 'y' )
         {
             sched.check_duedates( );
             cout << "Your prefered text file sir: ";
             cin >> txt_name;
             txt_filename = "Schedules\\" + txt_name;
-            while ( !open_txt( ftxt, txt_name ) )
+            while ( !open_txt( ftxt, txt_filename ) )
             {
                 cout << "I could not open that text file, sir." << endl;
                 cout << "Please enter a text file: ";
@@ -362,6 +394,13 @@ int main( )
 
         return 0;
     }
+
+
+    sched_name = csv_name;
+    sched_name.erase( sched_name.length( ) - 1 );
+    sched_name.erase( sched_name.length( ) - 1 );
+    sched_name.erase( sched_name.length( ) - 1 );
+    sched_name.erase( sched_name.length( ) - 1 );
 
     while ( !open_fin( fincsv, csv_filename ) )
     {
@@ -453,8 +492,18 @@ int main( )
             cout << "Are you sure you do not want to save your schedule, sir?" << endl;
             cout << "Response (y/n): ";
             cin >> response;
+
+            if ( response == 'y' )
+            {
+                cout << "You may press any key to exit." << endl;
+                cout << "Response: ";
+                cin >> response;
+
+                if ( response )
+                    return 0;
+            }
         }
-        if ( response == 'n' )
+        if ( response == 'y' )
         {
             sched.check_duedates( );
             cout << "Your prefered text file sir: ";
@@ -515,7 +564,7 @@ int main( )
                 cout << "Response (y/n): ";
                 cin >> response;
             }
-            if ( response == 'n' )
+            if ( response == 'y' )
             {
                 sched.check_duedates( );
                 cout << "Your prefered text file sir: ";
@@ -663,8 +712,17 @@ int main( )
         cout << "Are you sure you do not want to save your schedule, sir?" << endl;
         cout << "Response (y/n): ";
         cin >> response;
+        if ( response == 'y' )
+        {
+            cout << "You may press any key to exit." << endl;
+            cout << "Response: ";
+            cin >> response;
+
+            if ( response )
+                return 0;
+        }
     }
-    if ( response == 'n' )
+    if ( response == 'y' )
     {
         sched.check_duedates( );
         cout << "Your prefered text file sir: ";
